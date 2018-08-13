@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
     },
     plugins: [
@@ -12,9 +12,18 @@ module.exports = {
             template: 'index.html'
         })
     ],
+    module: {
+        rules: [
+            {
+                test: /\.js$/,  
+                use: 'babel-loader',
+                exclude: "/(node_modules)/"
+            }
+        ]
+    },
     devServer:{
         contentBase: path.join(__dirname, "index.html"),
-        compress: true,
+        // open: true, // 自动打开浏览器
         port: 9000
     }
 }
